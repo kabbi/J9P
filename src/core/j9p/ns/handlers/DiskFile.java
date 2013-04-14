@@ -39,7 +39,7 @@ import j9p.ns.File;
 import j9p.ns.Permissions;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Hashtable;
+import java.util.Map;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -70,6 +70,7 @@ public class DiskFile extends File {
 		/**
 		 * <p>Release handle (close file).</p>
 		 */
+        @Override
 		public void release () {
 			// close disk file.
 			try {
@@ -115,7 +116,8 @@ public class DiskFile extends File {
 	 * @param p Hashtable<String,String> - parameter set
 	 * @return Process - started thread (or null)
 	 */
-	public Process startHandler (Hashtable<String,String> p) {
+    @Override
+	public Process startHandler (Map<String,String> p) {
 
 		// get maximum size of logical file.
 		fileName = p.get ("ref");
@@ -134,6 +136,7 @@ public class DiskFile extends File {
 	 * @param mode int - access mode
 	 * @return Handle - handle to opened file
 	 */
+    @Override
 	public Handle open (Credential cr, int mode) {
 		
 		// try to open entry.
@@ -185,6 +188,7 @@ public class DiskFile extends File {
 	 * @param fmt Formatter - protocol-specific entry representation
 	 * @return byte[] - read content
 	 */
+    @Override
 	public byte[] read (Handle hdl, long offset, int size, AttributeHandler fmt) {
 		
 		// convert handle to proper type
@@ -234,6 +238,7 @@ public class DiskFile extends File {
 	 * @param size int - number of bytes to be written
 	 * @return int - number of bytes written
 	 */
+    @Override
 	public int write (Handle hdl, byte[] data, long offset, int size) {
 		
 		// convert handle to proper type
@@ -268,6 +273,7 @@ public class DiskFile extends File {
 	 * <p>Get size of entry.</p>
 	 * @return long - entry size
 	 */
+    @Override
 	public long getSize () {
 		// return size of underlying disk file
 		return fileSize;

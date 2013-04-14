@@ -34,10 +34,10 @@ package j9p.client;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.net.Socket;
-import java.io.IOException;
 import j9p.Session;
 import j9p.crypto.SecureChannel;
+import java.io.IOException;
+import java.net.Socket;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -85,6 +85,7 @@ public class ClientSession extends Session {
 	/**
 	 * <p>Run client session.</p>
 	 */
+    @Override
 	public void run () {
 		try {
 			// handle authentication process.
@@ -113,7 +114,6 @@ public class ClientSession extends Session {
 		}
 		catch (Exception e) {
 			System.err.println ("[StyxClient] exception caught -- " + e.getMessage());
-			return;
 		}
 	}
 }

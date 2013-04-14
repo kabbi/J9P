@@ -59,7 +59,7 @@ public class Base64 {
 	public static String fromArray (byte[] data) {
 		
 		// allocate result buffer
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		int size = data.length;
 		// compute padding
 		int padding = (3 - (size % 3)) % 3;

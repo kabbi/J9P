@@ -34,10 +34,10 @@ package j9p.io;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
+import j9p.Message;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import j9p.Message;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -91,6 +91,7 @@ public class StreamChannel extends StackableChannel {
 	 * @return Message - received message (or null)
 	 * @throws IOException
 	 */
+    @Override
 	public Message getNextMessage () throws IOException {
 		
 		// handle layered channels.
@@ -125,6 +126,7 @@ public class StreamChannel extends StackableChannel {
 	 * @return Message - next message in queue (or null)
 	 * @throws IOException
 	 */
+    @Override
 	public Message peekNextMessage () throws IOException {
 		
 		// handle layered channels.
@@ -152,6 +154,7 @@ public class StreamChannel extends StackableChannel {
 	 * not fetched by 'getNextMessage()'.</p>
 	 * @return boolean - message pending?
 	 */
+    @Override
 	public boolean hasPendingMessage () {
 		return pending != null;
 	}
@@ -162,6 +165,7 @@ public class StreamChannel extends StackableChannel {
 	 * @return boolean - successful operation?
 	 * @throws IOException
 	 */
+    @Override
 	public boolean sendMessage (Message msg) throws IOException {
 		
 		// handle layered channels.
@@ -185,6 +189,7 @@ public class StreamChannel extends StackableChannel {
 	 * <p>Close channel.</p>
 	 * @throws IOException 
 	 */
+    @Override
 	public void close () throws IOException {
 		
 		// handle layered channels.
@@ -212,6 +217,7 @@ public class StreamChannel extends StackableChannel {
 	 * @return int - number of bytes read
 	 * @throws IOException
 	 */
+    @Override
 	public int readBytes (byte[] buffer) throws IOException {
 		return is.read (buffer);
 	}
@@ -222,6 +228,7 @@ public class StreamChannel extends StackableChannel {
 	 * @param buffer byte[] - data buffer
 	 * @throws IOException
 	 */
+    @Override
 	public void writeBytes (byte[] buffer) throws IOException {
 		os.write (buffer);
 	}

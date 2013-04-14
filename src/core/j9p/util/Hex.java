@@ -34,7 +34,8 @@ package j9p.util;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -107,7 +108,7 @@ public class Hex {
 	public static String fromArray (byte[] array, int pos, int size, char delim) {
 		if (array == null)
 			return "<null>";
-		StringBuffer buf = new StringBuffer ();
+		StringBuilder buf = new StringBuilder ();
 		for (int n = 0; n < size; n++) {
 			if (n > 0) buf.append (delim);
 			buf.append (fromByte (array[pos+n]));
@@ -136,8 +137,8 @@ public class Hex {
 	 * @param delim char - byte delimiter in hex string
 	 * @return Vector<String> - list of hexadecimal representation
 	 */
-	public static Vector<String> fromArraySplit (byte[] array, char delim, int count) {
-		Vector<String> res = new Vector<String>();
+	public static List<String> fromArraySplit (byte[] array, char delim, int count) {
+		List<String> res = new ArrayList<String>();
 		int size = array.length;
 		for (int pos = 0; pos < size; pos += count) {
 			int num = Math.min (count, size-pos);

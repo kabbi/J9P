@@ -34,12 +34,13 @@ package j9p.ns.handlers;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.util.Vector;
+import java.util.List;
 import j9p.auth.Credential;
 import j9p.ns.Directory;
 import j9p.ns.Entry;
 import j9p.ns.Permissions;
 import j9p.util.Blob;
+import java.util.ArrayList;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -57,7 +58,7 @@ public class LogicalDirectory extends Directory {
 	/**
 	 * <p>List of contained entries.</p>
 	 */
-	protected Vector<Entry> list;
+	protected List<Entry> list;
 	/**
 	 * <p>Directory listing (for "read" operations).</p>
 	 */
@@ -96,7 +97,7 @@ public class LogicalDirectory extends Directory {
 	 * <p>Initialize object.</p>
 	 */
 	protected void prepare () {
-		list = new Vector<Entry>();
+		list = new ArrayList<Entry>();
 		dirList = null;
 		dirty = true;
 		inUse = false;
@@ -107,6 +108,7 @@ public class LogicalDirectory extends Directory {
 	 * <p>Remove directory from namespace</p> 
 	 * @return boolean successful operation?
 	 */
+    @Override
 	public boolean remove () {
 		
 		// can't delete a directory that is not empty.
@@ -123,6 +125,7 @@ public class LogicalDirectory extends Directory {
 	 * <p>Get number of entries in this directory.</p>
 	 * @return int - number of directory entries
 	 */
+    @Override
 	public int numEntries () {
 		return list.size();
 	}
@@ -132,8 +135,9 @@ public class LogicalDirectory extends Directory {
 	 * @param pos int - directory index
 	 * @return Entry - selected entry
 	 */
+    @Override
 	public Entry getEntryAt (int pos) {
-		return list.elementAt (pos);
+		return list.get (pos);
 	}
 	//-----------------------------------------------------------------
 	/**
@@ -141,6 +145,7 @@ public class LogicalDirectory extends Directory {
 	 * @param name String - name of entry (sub-directory)
 	 * @return Entry - associated namespace entry
 	 */
+    @Override
 	public Entry getEntryByName (String name) {
 		for (Entry e : list) {
 			if (name.equals(e.getName()))
@@ -155,6 +160,7 @@ public class LogicalDirectory extends Directory {
 	 * @param e Entry - entry to be added
 	 * @return boolean - successful operation
 	 */
+    @Override
 	public boolean add (Entry e) {
 		list.add (e);
 		e.setParent (this);
@@ -167,6 +173,7 @@ public class LogicalDirectory extends Directory {
 	 * @param e Entry - entry to be removed
 	 * @return boolean - remove successful?
 	 */
+    @Override
 	public boolean remove (Entry e) {
 		setModified();
 		return list.remove(e);
@@ -181,6 +188,7 @@ public class LogicalDirectory extends Directory {
 	 * @param cr Credential - user credential
 	 * @return Entry - new entry (or null)
 	 */
+    @Override
 	public Entry create (boolean asDir, String name, int perm, Credential cr) {
 		
 		// check if we can write to this directory.
@@ -208,6 +216,7 @@ public class LogicalDirectory extends Directory {
 	/**
 	 * <p>Flag the directory as "modified".</p> 
 	 */
+    @Override
 	public void setModified() {
 		super.setModified();
 		dirty = true;
@@ -223,6 +232,7 @@ public class LogicalDirectory extends Directory {
 	 * @param fmt Formatter - protocol-specific entry representation
 	 * @return byte[] - read content
 	 */
+    @Override
 	public byte[] read (Handle hdl, long offset, int size, AttributeHandler fmt) {
 		// flag entry as accessed.
 		setAccessed();

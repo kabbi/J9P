@@ -34,14 +34,12 @@ package j9p.ns.handlers;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Hashtable;
-
-import j9p.util.Base64;
 import j9p.ns.File;
 import j9p.ns.Permissions;
-import j9p.ns.handlers.Process;
+import j9p.util.Base64;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Map;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -94,7 +92,8 @@ public class LogicalFile extends File {
 	 * @param p Hashtable<String,String> - parameter set
 	 * @return Process - started thread (or null)
 	 */
-	public Process startHandler (Hashtable<String,String> p) {
+    @Override
+	public Process startHandler (Map<String,String> p) {
 
 		// get maximum size of logical file.
 		String sizeStr = p.get ("size");
@@ -137,6 +136,7 @@ public class LogicalFile extends File {
 	 * @param fmt Formatter - protocol-specific entry representation
 	 * @return byte[] - read content
 	 */
+    @Override
 	public byte[] read (Handle hdl, long offset, int count, AttributeHandler fmt) {
 		
 		// check bounds.
@@ -160,6 +160,7 @@ public class LogicalFile extends File {
 	 * @param count int - number of bytes to be written
 	 * @return int - number of bytes written
 	 */
+    @Override
 	public int write (Handle hdl, byte[] data, long offset, int count) {
 		
 		// check bounds.
@@ -179,6 +180,7 @@ public class LogicalFile extends File {
 	 * <p>Get size of entry.</p>
 	 * @return long - entry size
 	 */
+    @Override
 	public long getSize () {
 		// return our size
 		return size;
@@ -210,7 +212,7 @@ public class LogicalFile extends File {
 			}
 			
 			// assemble config entry
-			StringBuffer buf = new StringBuffer();
+			StringBuilder buf = new StringBuilder();
 			buf.append ("<File type=\"logFile\"  name=\"");
 			buf.append (fname);
 			buf.append ("\" mode=\"644\">\n<Content size=\"4096\">\n");

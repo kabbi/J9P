@@ -34,19 +34,17 @@ package j9p.server;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.io.IOException;
-import java.net.Socket;
-
+import j9p.Message;
+import j9p.Session;
 import j9p.auth.AP_Generic;
 import j9p.auth.AuthProtocolHandler;
 import j9p.auth.Authenticator;
 import j9p.auth.Credential;
-import j9p.auth.AuthProtocolHandler.Identity;
 import j9p.crypto.SecureChannel;
 import j9p.proto.V1;
 import j9p.proto.V2;
-import j9p.Message;
-import j9p.Session;
+import java.io.IOException;
+import java.net.Socket;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -88,6 +86,7 @@ public class ServerSession extends Session {
 	/**
 	 *  <p>Run the established session with the client.</p>
 	 */
+    @Override
 	public void run () {
 		// Access Authenticator instance
 		Authenticator auth = Authenticator.getInstance();

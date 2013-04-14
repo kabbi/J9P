@@ -116,6 +116,7 @@ public abstract class StackableChannel implements Channel {
 	 * @param ch Channel - wrapping channel (new outer layer)
 	 * @return boolean - wrapping successful?
 	 */
+    @Override
 	public boolean wrapWith (Channel ch) {
 		
 		// chain channels if 'ch' is stackable and no
@@ -136,6 +137,7 @@ public abstract class StackableChannel implements Channel {
 	 * <p>Peel of Channel layer around this instance.</p> 
 	 * @return Channel - former wrapping channel (outer layer).
 	 */
+    @Override
 	public Channel peelOff () {
 		StackableChannel outer = top;
 		top = outer.next;
@@ -146,6 +148,7 @@ public abstract class StackableChannel implements Channel {
 	 * <p>Check if we are a wrapped instance.</p> 
 	 * @return boolean - channel is nested
 	 */
+    @Override
 	public boolean isWrapped () {
 		return top == null;
 	}

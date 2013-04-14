@@ -37,8 +37,8 @@ package j9p.server;
 import j9p.Message;
 import j9p.auth.Credential;
 import j9p.ns.Entry;
-import j9p.ns.Permissions;
 import j9p.ns.Entry.Attributes;
+import j9p.ns.Permissions;
 import j9p.proto.V1;
 import j9p.util.Blob;
 
@@ -70,6 +70,7 @@ public class ServerProtocol_V1 extends ServerProtocol {
 	 * @param in Message - message to be inspected
 	 * @return int - tag of operation in message
 	 */
+    @Override
 	public int getTag (Message in) {
 		return in.getShort (1);
 	}
@@ -81,6 +82,7 @@ public class ServerProtocol_V1 extends ServerProtocol {
 	 * @param in Message - message to be inspected
 	 * @return int - tag of flushed operation (or 0)
 	 */
+    @Override
 	public int isFlushing (Message in) {
 		if (in.getByte (0) != V1.Tflush)
 			return 0;
@@ -93,6 +95,7 @@ public class ServerProtocol_V1 extends ServerProtocol {
 	 * @param in Message - message to be printed
 	 * @return String - printable Styx message
 	 */
+    @Override
 	public String toString (Message in) {
 		return V1.toString (in);
 	}
@@ -107,6 +110,7 @@ public class ServerProtocol_V1 extends ServerProtocol {
 	 * @param cr Credential - user credential
 	 * @return Message - outgoing server response
 	 */
+    @Override
 	public Message process (int id, Message in, Credential cr) {
 		
 		// read "header" fields of Styx message.
@@ -366,6 +370,7 @@ public class ServerProtocol_V1 extends ServerProtocol {
 	 * @param e Entry - namespace entry (file)
 	 * @return byte[] - file attributes
 	 */
+    @Override
 	public byte[] getStat (Entry e) {
 		
 		// re-code file attributes
@@ -392,6 +397,7 @@ public class ServerProtocol_V1 extends ServerProtocol {
 	 * @param cr Credential - user credential
 	 * @return boolean - attributes modified?
 	 */
+    @Override
 	public boolean setStat (Entry e, byte[] stat, Credential cr) {
 
 		// get old attribute values
@@ -432,6 +438,7 @@ public class ServerProtocol_V1 extends ServerProtocol {
 	 * @param e Entry - namespace entry
 	 * @return byte[] - binary representation of qid.
 	 */
+    @Override
 	public byte[] getQid (Entry e) {
 		Blob b = new Blob();
 		Attributes attr = getAttributes(e);

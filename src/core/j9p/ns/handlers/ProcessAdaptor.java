@@ -34,7 +34,7 @@ package j9p.ns.handlers;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.util.Hashtable;
+import java.util.Map;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -81,7 +81,7 @@ public abstract class ProcessAdaptor extends Process implements ProcessFile.List
 	 * @param p Hashtable<String,String> - parameter set
 	 * @return Process - started thread (or null)
 	 */
-	public Process startHandler (Hashtable<String,String> p) {
+	public Process startHandler (Map<String,String> p) {
 
 		// get buffer size
 		String sizeStr = p.get ("buf");
@@ -164,6 +164,7 @@ public abstract class ProcessAdaptor extends Process implements ProcessFile.List
 	 * @param data byte[] - incoming data from a write operation
 	 * @param offset long - offset into data
 	 */
+    @Override
 	public void asInput (byte[] data, long offset) {
 		alloc ();
 		// we ignore the offset and simply append the data
@@ -184,6 +185,7 @@ public abstract class ProcessAdaptor extends Process implements ProcessFile.List
 	 * @param offset long - offset into output (index)
 	 * @param count int - number of expected bytes
 	 */
+    @Override
 	public byte[] getOutput (long offset, int count) {
 		
 		// check for deferred allocation.

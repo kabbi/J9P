@@ -193,6 +193,7 @@ public class Permissions {
 	 * <p>Return a copy of this permissions.</p>
 	 * @return Permissions - cloned permissions
 	 */
+    @Override
 	public Permissions clone() {
 		return new Permissions (owner, group, perm);
 	}

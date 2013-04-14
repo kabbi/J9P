@@ -61,7 +61,7 @@ public class Client {
 	/**
 	 * <p>Constructor: Instantiate new StyxClient</p>
 	 */
-	protected Client () {
+	public Client () {
 	}
 
 	//=================================================================
@@ -72,7 +72,7 @@ public class Client {
 	 * @param auth boolean - authentication required?
 	 * @param version int - requested protocol version
 	 */
-	protected void run (InetSocketAddress srv, boolean auth, int version) {
+	public void run (InetSocketAddress srv, boolean auth, int version) {
 		try {
 			// connect to server
 			System.out.println ("[StyxClient] Connecting to server '" + srv + "'...");
@@ -88,61 +88,61 @@ public class Client {
 		}
 	}
 	
-	//=================================================================
-	/**
-	 * 
-	 * @param argv
-	 */
-	public static void main (String[] argv) {
-		
-		// punch welcome message
-		System.out.println ("==============================");
-		System.out.println ("Client v0.1b, (c)2008-2012 >Y<");
-		System.out.println ("==============================");
-		System.out.println ();
-		System.out.flush();
-		
-		// parse commandline options
-		Args args = new Args (argv, "p:a:v!");
-		int port = args.getWordOpt ("-p", 6666);
-		String authData = args.getStringOpt ("-a", null);
-		boolean auth = (authData != null);
-		String vStr = args.getStringOpt ("-v", "2");
-		
-		// check for correct number of positional arguments.
-		int argc = args.getNumArgs();
-		if (argc != 1) {
-			System.err.println ("Only one positional argument (server address) allowed!");
-			System.err.println ("Usage: StyxClient [-p <port>] [-a] <server>");
-			System.err.println ("Defaults: Port = 6666, no authentication");
-			System.err.flush();
-			return;
-		}
-
-		// check protocol version
-		int version = (vStr.length() == 1 ? vStr.charAt(0) - '0' : -1);
-		if (version < 0 || version > 2) {
-			System.err.println ("No valid protocol version [0|1|2] specified -- terminating...");
-			System.err.flush();
-			return;
-		}
-		
-		// get server address.
-		String serverAddr = args.getStringArg (0, null);
-		if (serverAddr == null) {
-			System.err.println ("No valid server address available -- terminating...");
-			System.err.flush();
-			return;
-		}
-
-		// Read authentication data
-		Authenticator.getInstance().readAuthConfig (authData);
-
-		// instantiate new Styx client
-		Client client = new Client ();
-		InetSocketAddress srv = new InetSocketAddress (serverAddr, port);
-
-		// run client
-		client.run (srv, auth, version);
-	}
+//	//=================================================================
+//	/**
+//	 * 
+//	 * @param argv
+//	 */
+//	public static void main (String[] argv) {
+//		
+//		// punch welcome message
+//		System.out.println ("==============================");
+//		System.out.println ("Client v0.1b, (c)2008-2012 >Y<");
+//		System.out.println ("==============================");
+//		System.out.println ();
+//		System.out.flush();
+//		
+//		// parse commandline options
+//		Args args = new Args (argv, "p:a:v!");
+//		int port = args.getWordOpt ("-p", 6666);
+//		String authData = args.getStringOpt ("-a", null);
+//		boolean auth = (authData != null);
+//		String vStr = args.getStringOpt ("-v", "2");
+//		
+//		// check for correct number of positional arguments.
+//		int argc = args.getNumArgs();
+//		if (argc != 1) {
+//			System.err.println ("Only one positional argument (server address) allowed!");
+//			System.err.println ("Usage: StyxClient [-p <port>] [-a] <server>");
+//			System.err.println ("Defaults: Port = 6666, no authentication");
+//			System.err.flush();
+//			return;
+//		}
+//
+//		// check protocol version
+//		int version = (vStr.length() == 1 ? vStr.charAt(0) - '0' : -1);
+//		if (version < 0 || version > 2) {
+//			System.err.println ("No valid protocol version [0|1|2] specified -- terminating...");
+//			System.err.flush();
+//			return;
+//		}
+//		
+//		// get server address.
+//		String serverAddr = args.getStringArg (0, null);
+//		if (serverAddr == null) {
+//			System.err.println ("No valid server address available -- terminating...");
+//			System.err.flush();
+//			return;
+//		}
+//
+//		// Read authentication data
+//		Authenticator.getInstance().readAuthConfig (authData);
+//
+//		// instantiate new Styx client
+//		Client client = new Client ();
+//		InetSocketAddress srv = new InetSocketAddress (serverAddr, port);
+//
+//		// run client
+//		client.run (srv, auth, version);
+//	}
 }

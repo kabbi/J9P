@@ -35,8 +35,10 @@ package j9p.util;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -52,8 +54,8 @@ public class Args {
 	/*
 	 * Attributes:
 	 */
-	private Vector<String>    			arguments;	// positional arguments
-	private Hashtable<String,String>	options;	// options
+	private List<String>    			arguments;	// positional arguments
+	private Map<String,String>          options;	// options
 	
 	//=================================================================
 	/**
@@ -64,8 +66,8 @@ public class Args {
 	public Args (String[] argv, String pattern) {
 		
 		// allocate lists
-		arguments = new Vector<String>();
-		options = new Hashtable<String,String>();
+		arguments = new ArrayList<String>();
+		options = new HashMap<String,String>();
 		
 		// process all arguments
 		for (int argc = 0; argc < argv.length; argc++) {
@@ -155,7 +157,7 @@ public class Args {
 	 * @return String - argument
 	 */
 	public String getStringArg (int pos, String defValue) {
-		String res = arguments.elementAt (pos);
+		String res = arguments.get (pos);
 		return (res == null ? defValue : res);
 	}
 	

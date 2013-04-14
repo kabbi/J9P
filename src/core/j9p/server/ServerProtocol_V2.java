@@ -69,6 +69,7 @@ public class ServerProtocol_V2 extends ServerProtocol {
 	 * @param in Message - message to be inspected
 	 * @return int - tag of operation in message
 	 */
+    @Override
 	public int getTag (Message in) {
 		return in.getShort (4);
 	}
@@ -80,6 +81,7 @@ public class ServerProtocol_V2 extends ServerProtocol {
 	 * @param in Message - message to be inspected
 	 * @return int - tag of flushed operation (or 0)
 	 */
+    @Override
 	public int isFlushing (Message in) {
 		if (in.getByte (4) != V2.Tflush)
 			return 0;
@@ -92,6 +94,7 @@ public class ServerProtocol_V2 extends ServerProtocol {
 	 * @param in Message - message to be printed
 	 * @return String - printable Styx message
 	 */
+    @Override
 	public String toString (Message in) {
 		return V2.toString (in);
 	}
@@ -106,6 +109,7 @@ public class ServerProtocol_V2 extends ServerProtocol {
 	 * @param cr Credential - user credential
 	 * @return Message - outgoing server response
 	 */
+    @Override
 	public Message process (int id, Message in, Credential cr) {
 		
 		// check message consistency
@@ -381,6 +385,7 @@ public class ServerProtocol_V2 extends ServerProtocol {
 	 * @param e Entry - namespace entry (file)
 	 * @return byte[] - file attributes
 	 */
+    @Override
 	public byte[] getStat (Entry e) {
 		Attributes attr = getAttributes (e);
 
@@ -418,6 +423,7 @@ public class ServerProtocol_V2 extends ServerProtocol {
 	 * @param cr Credential - user credential
 	 * @return boolean - attributes modified?
 	 */
+    @Override
 	public boolean setStat (Entry e, byte[] stat, Credential cr) {
 		return false;
 	}
@@ -427,6 +433,7 @@ public class ServerProtocol_V2 extends ServerProtocol {
 	 * @param e Entry - namespace entry
 	 * @return byte[] - binary representation of qid.
 	 */
+    @Override
 	public byte[] getQid (Entry e) {
 		Blob b = new Blob();
 		if (e != null) {

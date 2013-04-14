@@ -37,7 +37,8 @@ package j9p.auth;
 import j9p.Message;
 import j9p.auth.AuthProtocolHandler.Identity;
 import java.io.FileInputStream;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
@@ -75,14 +76,14 @@ public class Authenticator {
 	/**
 	 * <p>List of managed identities.</p>
 	 */
-	private Hashtable<String,Identity> identities = null;
+	private Map<String,Identity> identities = null;
 	
 	//=================================================================
 	/**
 	 * <p>Instantiate a new Authenticator (only used in static init).</p>
 	 */
 	private Authenticator () {
-		identities = new Hashtable<String,Identity>();
+		identities = new HashMap<String,Identity>();
 	}
 	
 	//=================================================================
@@ -171,7 +172,7 @@ public class Authenticator {
 		// Read authentication data
 		if (!auth.readAuthConfig (argv[0])) {
 			System.out.println ("Auth config failed!");
-			return;
+            return;
 		}
 	}
 }

@@ -38,9 +38,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.Hashtable;
 import j9p.auth.Credential;
 import j9p.io.StreamChannel;
+import java.util.HashMap;
+import java.util.Map;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -128,6 +129,7 @@ public abstract class Session extends Thread {
 		/**
 		 * <p>Run operation thread: Process message and send reply.</p>
 		 */
+        @Override
 		public void run () {
 			
 			// get tag of operation and register thread.
@@ -183,7 +185,7 @@ public abstract class Session extends Thread {
 	protected boolean useAuth = false;		// authentication required?
 	protected Credential userCred = null;	// user credential (after auth)
 	
-	protected Hashtable<Integer,Thread> pendingOps = null;	// list of pending operations.
+	protected Map<Integer,Thread> pendingOps = null;	// list of pending operations.
 	
 
 	//=================================================================
@@ -202,7 +204,7 @@ public abstract class Session extends Thread {
 		//socket.setSoTimeout (5000);
 		comm = new StreamChannel (is, os);
 		this.hdlr = hdlr;
-		pendingOps = new Hashtable<Integer,Thread>(); 
+		pendingOps = new HashMap<Integer,Thread>(); 
 	}
 	
 	//=================================================================
@@ -218,5 +220,6 @@ public abstract class Session extends Thread {
 	/**
 	 *  <p>Run the established session with the client.</p>
 	 */
+    @Override
 	public abstract void run ();
 }

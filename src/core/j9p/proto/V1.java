@@ -141,24 +141,24 @@ public class V1 {
 	 * @return String - printable Styx message
 	 */
 	public static String toString (Message in) {
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		int msgSize = in.size();
 		int type = in.getByte(0);
 		
 		// check for Styx message
 		if (type >= 0 && type < NUM_TYPES) {
 			// assemble formatted Styx message
-			buf.append ("[type:" + typeNames[type] + "]");
-			buf.append ("[tag:" + Hex.fromShort ((short)in.getShort(1)) + "]");
+			buf.append("[type:").append(typeNames[type]).append ("]");
+			buf.append("[tag:").append(Hex.fromShort((short)in.getShort(1))).append ("]");
 			if (msgSize > 3) {
 				if (type == Rerror) {
 					String err = in.getString (3, 64);
-					buf.append ("[error:" + err + "]");
+					buf.append("[error:").append(err).append ("]");
 				} else {
-					buf.append ("[fid:" + Hex.fromShort ((short)in.getShort(3)) + "]");
+					buf.append("[fid:").append(Hex.fromShort ((short)in.getShort(3))).append ("]");
 					if (msgSize > 5) {
 						byte[] payload = in.getArray (5, msgSize-5);
-						buf.append ("[data:" + Hex.fromArray (payload, ':') + "]");
+						buf.append("[data:").append(Hex.fromArray (payload, ':')).append ("]");
 					}
 				}
 			}

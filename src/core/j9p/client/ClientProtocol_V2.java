@@ -11,6 +11,7 @@ import j9p.util.Hex;
 
 public class ClientProtocol_V2 extends ClientProtocol {
 
+    @Override
 	public Credential authenticate (String uname, String aname) throws IOException {
 
 		int authFid = getNextFid();
@@ -60,6 +61,7 @@ public class ClientProtocol_V2 extends ClientProtocol {
 		return null;
 	}
 	
+    @Override
 	public Type.Version negotiateVersion(String version, int msize) throws IOException {
 		
 		int size = version.length() + 13;
@@ -91,6 +93,7 @@ public class ClientProtocol_V2 extends ClientProtocol {
 		return res;
 	}
 
+    @Override
 	public Type.Qid attach (String user, String aname) throws IOException {
 		return null;
 	}

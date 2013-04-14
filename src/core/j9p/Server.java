@@ -69,7 +69,7 @@ public class Server {
 	 * @param auth boolean - authentication required?
 	 * @param mgr NamespaceManager - namespace manager of server
 	 */
-	protected Server (int port, int maxConn, boolean auth, NamespaceManager mgr) {
+	public Server (int port, int maxConn, boolean auth, NamespaceManager mgr) {
 		// save port and flags
 		this.port = port;
 		forceAuth = auth;
@@ -81,7 +81,7 @@ public class Server {
 	/**
 	 * <p>Run StyxServer.</p>
 	 */
-	protected void run () {
+	public void run () {
 		try {
 		 	// setup a server socket on port
 			ServerSocket svr = new ServerSocket (port);
@@ -113,68 +113,68 @@ public class Server {
 		}
 	}
 	
-	//=================================================================
-	/**
-	 * 
-	 * @param argv
-	 */
-	public static void main (String[] argv) {
-		
-		// punch welcome message
-		System.out.println ("==================================");
-		System.out.println ("J9P/StyxServer v" + Library.getVersion());
-		System.out.println ("Author: " + Library.getAuthor());
-		System.out.println ("==================================");
-		System.out.println ();
-		System.out.flush();
-		
-		// parse commandline options
-		Args args = new Args (argv, "p:s:a:");
-		int port = args.getWordOpt ("-p", 6666);
-		int maxSessions = args.getWordOpt ("-s", 10);
-		String authConfig = args.getStringOpt ("-a", null);
-		boolean auth = (authConfig != null);
-		
-		int argc = args.getNumArgs();
-		if (argc != 1) {
-			System.err.println ("Only one positional argument (namespace config) allowed!");
-			System.err.println ("Usage: StyxServer [-p <port>] [-s <maxSessions>] [-a <auth config>] <namespace config>");
-			System.err.println ("Defaults: Port = 6666, maxSessions = 10");
-			System.err.flush();
-			return;
-		}
-		
-		System.out.println ("Using port " + port + " for max. " + maxSessions + " concurrent sessions.");
-		
-		// read namespace configuration
-		String nsConfig = args.getStringArg (0, null);
-		NamespaceManager mgr = new NamespaceManager();
-		System.out.println ("Reading namespace configurarations from '" + nsConfig + "'...");
-		if (!mgr.readConfig (nsConfig)) {
-			System.err.println ("Can't read namespace definitions from file");
-			System.err.println (" '" + nsConfig + "' -- terminating...");
-			System.err.flush();
-			return;
-		}
-
-		// Read authentication data
-		if (auth) {
-			System.out.println ("Authentication MANDATORY - using '" + authConfig + "' as configuration data file...");
-			if (!Authenticator.getInstance().readAuthConfig (authConfig)) {
-				System.err.println ("Reading/parsing of authentication data failed!");
-				System.err.print   ("Correct problem or re-start server without authentication (no '-a' option)");
-				System.err.flush();
-				return;
-			}
-		} else
-			System.out.println ("Authentication SWITCHED OFF - not required for clients.");
-		
-		// instantiate new Styx server
-		Server srv = new Server (port, maxSessions, auth, mgr);
-		System.out.println ();
-		System.out.println ("Now serving up to " + maxSessions + " sessions on port " + port + " ...");
-		
-		// run server
-		srv.run ();
-	}
+//	//=================================================================
+//	/**
+//	 * 
+//	 * @param argv
+//	 */
+//	public static void main (String[] argv) {
+//		
+//		// punch welcome message
+//		System.out.println ("==================================");
+//		System.out.println ("J9P/StyxServer v" + Library.getVersion());
+//		System.out.println ("Author: " + Library.getAuthor());
+//		System.out.println ("==================================");
+//		System.out.println ();
+//		System.out.flush();
+//		
+//		// parse commandline options
+//		Args args = new Args (argv, "p:s:a:");
+//		int port = args.getWordOpt ("-p", 6666);
+//		int maxSessions = args.getWordOpt ("-s", 10);
+//		String authConfig = args.getStringOpt ("-a", null);
+//		boolean auth = (authConfig != null);
+//		
+//		int argc = args.getNumArgs();
+//		if (argc != 1) {
+//			System.err.println ("Only one positional argument (namespace config) allowed!");
+//			System.err.println ("Usage: StyxServer [-p <port>] [-s <maxSessions>] [-a <auth config>] <namespace config>");
+//			System.err.println ("Defaults: Port = 6666, maxSessions = 10");
+//			System.err.flush();
+//			return;
+//		}
+//		
+//		System.out.println ("Using port " + port + " for max. " + maxSessions + " concurrent sessions.");
+//		
+//		// read namespace configuration
+//		String nsConfig = args.getStringArg (0, null);
+//		NamespaceManager mgr = new NamespaceManager();
+//		System.out.println ("Reading namespace configurarations from '" + nsConfig + "'...");
+//		if (!mgr.readConfig (nsConfig)) {
+//			System.err.println ("Can't read namespace definitions from file");
+//			System.err.println (" '" + nsConfig + "' -- terminating...");
+//			System.err.flush();
+//			return;
+//		}
+//
+//		// Read authentication data
+//		if (auth) {
+//			System.out.println ("Authentication MANDATORY - using '" + authConfig + "' as configuration data file...");
+//			if (!Authenticator.getInstance().readAuthConfig (authConfig)) {
+//				System.err.println ("Reading/parsing of authentication data failed!");
+//				System.err.print   ("Correct problem or re-start server without authentication (no '-a' option)");
+//				System.err.flush();
+//				return;
+//			}
+//		} else
+//			System.out.println ("Authentication SWITCHED OFF - not required for clients.");
+//		
+//		// instantiate new Styx server
+//		Server srv = new Server (port, maxSessions, auth, mgr);
+//		System.out.println ();
+//		System.out.println ("Now serving up to " + maxSessions + " sessions on port " + port + " ...");
+//		
+//		// run server
+//		srv.run ();
+//	}
 }

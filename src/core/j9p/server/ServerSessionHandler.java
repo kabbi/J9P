@@ -34,9 +34,9 @@ package j9p.server;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
+import j9p.SessionHandler;
 import java.io.IOException;
 import java.net.Socket;
-import j9p.SessionHandler;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -69,6 +69,7 @@ public class ServerSessionHandler extends SessionHandler {
 	 * @param needAuth boolean - authentication required?
 	 * @return boolean - StyxSession up and running
 	 */
+    @Override
 	public boolean startSession (Socket s, boolean needAuth) {
 		try {
 			// start session on socket

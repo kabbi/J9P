@@ -34,8 +34,9 @@ package j9p.auth;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.util.Hashtable;
 import j9p.io.ConfigParser;
+import java.util.HashMap;
+import java.util.Map;
 
 
 //=================================================================
@@ -57,7 +58,7 @@ public abstract class AP_Generic extends ConfigParser implements AuthProtocolHan
 	 * 	<p>List of registered handlers (can be extended overwritten
 	 *  by definitions in the authentication configuration file).</p>
 	 */
-	private static Hashtable<String,Class<? extends AP_Generic>> handlers;
+	private static Map<String,Class<? extends AP_Generic>> handlers;
 	/**
 	 * <p>Names for built-in authentication handlers.</p>
 	 */
@@ -67,7 +68,7 @@ public abstract class AP_Generic extends ConfigParser implements AuthProtocolHan
 	// static initializer
 	static {
 		// allocate new class list of (auth) protocol handlers.
-		handlers = new Hashtable<String,Class<? extends AP_Generic>>();
+		handlers = new HashMap<String,Class<? extends AP_Generic>>() {};
 		
 		// set built-in handlers.
 		handlers.put ("inferno", AP_Inferno.class);
@@ -151,5 +152,6 @@ public abstract class AP_Generic extends ConfigParser implements AuthProtocolHan
 	 * @param asServer boolean - act as server side
 	 * @return boolean - initialization successful?
 	 */
+    @Override
 	public abstract boolean init (Identity id, boolean asServer);
 }

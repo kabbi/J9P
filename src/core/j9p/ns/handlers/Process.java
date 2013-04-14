@@ -34,8 +34,8 @@ package j9p.ns.handlers;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.util.Hashtable;
 import j9p.ns.Entry;
+import java.util.Map;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -56,7 +56,7 @@ public abstract class Process extends Thread {
 	 * @param e Entry - associated namespace entry 
 	 * @param p Hashtable<String,String> - list of parameter definitions
 	 */
-	public void init (Entry e, Hashtable<String,String> p) {
+	public void init (Entry e, Map<String,String> p) {
 		running = true;
 		ent = e;
 	}

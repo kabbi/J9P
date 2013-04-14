@@ -34,15 +34,15 @@ package j9p.server;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.util.Enumeration;
-import java.util.Hashtable;
 import j9p.auth.AuthEntry;
 import j9p.auth.Credential;
 import j9p.ns.Directory;
-import j9p.ns.Namespace;
 import j9p.ns.Entry;
-import j9p.ns.Permissions;
 import j9p.ns.Entry.Handle;
+import j9p.ns.Namespace;
+import j9p.ns.Permissions;
+import java.util.HashMap;
+import java.util.Map;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -132,8 +132,8 @@ public abstract class ServerProtocol extends Entry.AttributeHandler implements S
 	/*
 	 * Attributes:
 	 */
-	private Hashtable<Integer,Entry> assoc = null;	// fid/Entry map
-	private Hashtable<Integer,Handle> accessors;	// list of opened files
+	private Map<Integer,Entry> assoc = null;	// fid/Entry map
+	private Map<Integer,Handle> accessors;	// list of opened files
 	private NamespaceManager nsHdlr = null;			// namespace handler
 	private boolean withAuth = false;				// authentication required?
 
@@ -148,8 +148,8 @@ public abstract class ServerProtocol extends Entry.AttributeHandler implements S
 	 * @param needAuth boolean - authentication required?
 	 */
 	protected ServerProtocol (NamespaceManager nsHdlr, boolean needAuth) {
-		assoc = new Hashtable<Integer,Entry>();
-		accessors = new Hashtable<Integer,Handle>();
+		assoc = new HashMap<Integer,Entry>();
+		accessors = new HashMap<Integer,Handle>();
 		this.nsHdlr = nsHdlr;
 		withAuth = needAuth;
 	}
@@ -158,14 +158,12 @@ public abstract class ServerProtocol extends Entry.AttributeHandler implements S
 	/**
 	 * <p>Reset protocol handler instance.</p> 
 	 */
+    @Override
 	public void reset () {
 		
 		// "clunk" all fids.
-		for (Enumeration<Integer> e = accessors.keys(); e.hasMoreElements(); ) {
-			int fid = e.nextElement();
-			// release fid
-			releaseFid (fid);
-		}
+        for (Integer fid: accessors.keySet())
+            releaseFid(fid);
 		// empty lists
 		assoc.clear();
 		accessors.clear();

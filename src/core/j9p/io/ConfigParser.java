@@ -2,7 +2,6 @@
 package j9p.io;
 
 import java.util.Stack;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -15,7 +14,7 @@ public abstract class ConfigParser extends DefaultHandler {
 	protected boolean done = false;
 
 	public String getPosition () {
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		for (String ent : position) {
 			buf.append ('/');
 			buf.append (ent);
@@ -27,6 +26,7 @@ public abstract class ConfigParser extends DefaultHandler {
 	
 	public abstract void enterElement (String name, Attributes attrs) throws Exception;
 	
+    @Override
 	public void startElement (String namespaceURI, String localName, String qName, Attributes attrs) throws SAXException {
 		
 		String name = ( "".equals( localName ) ) ? qName : localName;
@@ -68,6 +68,7 @@ public abstract class ConfigParser extends DefaultHandler {
 
 	public abstract void leaveElement (String name) throws Exception;
 	
+    @Override
 	public void endElement (String namespaceURI, String localName, String qName) throws SAXException {
 		
 		String name = ( "".equals( localName ) ) ? qName : localName;

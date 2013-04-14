@@ -112,7 +112,7 @@ public class ChannelCipher {
 	 */
 	private static int getAlgId (String alg) {
 		for (int n = 0; n < algs.length; n++)
-			if (algs[n].equals (alg))
+			if (alg.equals(algs[n]))
 				return n;
 		return -1;
 	}

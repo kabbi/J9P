@@ -34,10 +34,10 @@ package j9p.ns;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.util.Date;
-import java.util.Hashtable;
-import j9p.ns.handlers.Process;
 import j9p.auth.Credential;
+import j9p.ns.handlers.Process;
+import java.util.Date;
+import java.util.Map;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -189,7 +189,7 @@ public abstract class Entry {
 	 *	Attributes: 
 	 */
 	protected Directory		parent = null;		// reference to parent (directory)
-	protected Attributes	stat = null;		// reference to file attributes
+	protected Attributes    stat = null;        // reference to file attributes
 	protected int			inUse = 0;			// number of accessors
 	
 	//=================================================================
@@ -243,7 +243,7 @@ public abstract class Entry {
 	 * @param p Hashtable<String,String> - parameter set
 	 * @return Process - started thread (or null)
 	 */
-	public Process startHandler (Hashtable<String,String> p) {
+	public Process startHandler (Map<String,String> p) {
 		return null;
 	}
 

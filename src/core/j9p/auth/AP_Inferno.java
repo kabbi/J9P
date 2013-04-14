@@ -34,18 +34,18 @@ package j9p.auth;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
+import j9p.Channel;
+import j9p.Message;
+import j9p.io.ContentHandler;
+import j9p.util.Blob;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.Vector;
+import java.util.List;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import j9p.Channel;
-import j9p.Message;
-import j9p.io.ContentHandler;
-import j9p.util.Blob;
 
 
 //=================================================================
@@ -97,12 +97,14 @@ public class AP_Inferno extends AP_Generic {
 		 * <p>Get name of identity.</p>
 		 * @return String - name of identity
 		 */
+        @Override
 		public String getName()			{ return name; }
 		//-------------------------------------------------------------
 		/**
 		 * <p>Get name of authentication protocol.</p>
 		 * @return String - name of authentication protocol
 		 */
+        @Override
 		public String getAuthProtocol()	{ 
 			return proto;
 		}
@@ -131,6 +133,7 @@ public class AP_Inferno extends AP_Generic {
 	 * @param asServer boolean - act as server side
 	 * @return boolean - initialization successful?
 	 */
+    @Override
 	public boolean init (Identity idIn, boolean asServer) {
 		isServer = asServer;
 		
@@ -150,6 +153,7 @@ public class AP_Inferno extends AP_Generic {
 	 * <p>Get name of handled authentication protocol.</p>
 	 * @return String - name of authentication protocol 
 	 */
+    @Override
 	public String getProtocolName () {
 		return "inferno";
 	}
@@ -158,6 +162,7 @@ public class AP_Inferno extends AP_Generic {
 	 * <p>Get the peer credential after a successful authentication.</p>
 	 * @return Credential - authenticated peer credential (or null)
 	 */
+    @Override
 	public Credential getPeerCredential() {
 		return peerCr;
 	}
@@ -171,6 +176,7 @@ public class AP_Inferno extends AP_Generic {
 	 * with given role assignment.</p>
 	 * @return Identity - assigned/defined identity (or null)
 	 */
+    @Override
 	public Identity getIdentity () {
 		
 		// check if a new Identity can be set-up:
@@ -193,6 +199,7 @@ public class AP_Inferno extends AP_Generic {
 	 * method after a process method returned AUTH_FAILED or null.</p> 
 	 * @return String - error message (or null)
 	 */
+    @Override
 	public String getInfo () {
 		return err;
 	}
@@ -238,6 +245,7 @@ public class AP_Inferno extends AP_Generic {
 	 * @return int - processing mode
 	 * @throws IOException - communication failure
 	 */
+    @Override
 	public int process (Channel ch) throws IOException {
 			
 		//=============================================================
@@ -317,6 +325,7 @@ public class AP_Inferno extends AP_Generic {
 	 * @return int - processing state (AUTH_???)
 	 * @throws IOException - communication failure
 	 */
+    @Override
 	public int getDataForPeer (Blob data) throws IOException {
 		String content = null;
 		
@@ -406,17 +415,18 @@ public class AP_Inferno extends AP_Generic {
 	 * @return int - processing mode
 	 * @throws IOException - communication failure
 	 */
+    @Override
 	public int handlePeerData (Blob b) throws IOException {
 
 		// split incoming data into sections. It is assumed
 		// that peers only send one or more complete sections
 		// within on message (no fragmentation allowed!)
-		Vector<String[]> sections = null;
+		List<String[]> sections = null;
 		String[] content = null;
 		int pos = 0;
 		if (b != null) {
 			sections = ContentHandler.getSections (b);
-			content = sections.elementAt(0);
+			content = sections.get(0);
 			
 			// check for error message
 			if ("*ERROR*".equals (content[0])) {
@@ -461,7 +471,7 @@ public class AP_Inferno extends AP_Generic {
 					// signal we need more data
 					return AUTH_NEED_DATA;
 				}
-				content = sections.elementAt (++pos);
+				content = sections.get (++pos);
 				// intended fall through!
 			case STATE_AUTH_DATA2:
 				// get certificate of peer (client)
@@ -471,7 +481,7 @@ public class AP_Inferno extends AP_Generic {
 					// signal we need more data
 					return AUTH_NEED_DATA;
 				}
-				content = sections.elementAt (++pos);
+				content = sections.get (++pos);
 				// intended fall through!
 			case STATE_AUTH_DATA3:
 				// get public key of peer

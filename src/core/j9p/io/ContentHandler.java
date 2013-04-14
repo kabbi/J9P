@@ -35,14 +35,15 @@ package j9p.io;
 ///////////////////////////////////////////////////////////////////////////////
 //import external declarations.
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ByteArrayInputStream;
-import java.math.BigInteger;
-import java.util.Vector;
 import j9p.Channel;
 import j9p.util.Base64;
 import j9p.util.Blob;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -65,13 +66,13 @@ public class ContentHandler {
 	 * @return Vector<String[]> - list of sections
  	 * @throws IOException - communication failure
 	 */
-	public static Vector<String[]> getSections (Blob b) throws IOException {
+	public static List<String[]> getSections (Blob b) throws IOException {
 
 		int total = b.size();
 		int pos = 0;
 		
 		// parse sections
-		Vector<String[]> sections = new Vector<String[]>();
+		List<String[]> sections = new ArrayList<String[]>();
 		while (pos < total) {
 			// read section size.
 			String num = b.getDirectString (pos, 4);
@@ -176,7 +177,7 @@ public class ContentHandler {
 	 */
 	public static String createSection (String[] content) {
 		
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		int num = content.length;
 		for (int n = 0; n < num; n++) {
 			buf.append (content[n]);
@@ -228,7 +229,7 @@ public class ContentHandler {
 	 * @return String - assembled error section
 	 */
 	public static String createErrorSection (String err) {
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		int length = err.length();
 		String size = "000" + length;
 		buf.append ('!');

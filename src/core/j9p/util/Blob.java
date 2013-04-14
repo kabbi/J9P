@@ -149,6 +149,7 @@ public class Blob {
 	 * <p>Generate printable representation of Blob.</p> 
 	 * @return String - printable blob
 	 */
+    @Override
 	public String toString () {
 		if (data == null)
 			close();
@@ -260,7 +261,7 @@ public class Blob {
 	 * @return String - string from blob
 	 */
 	public String getString (int num) {
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		boolean append = true;
 		for (int n = 0; n < num; n++) {
 			int ch = getByte();
@@ -278,7 +279,7 @@ public class Blob {
 	 * @return String - string from blob
 	 */
 	public String getDelimString () {
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		int ch;
 		while ((ch = getByte()) != 0)
 			buf.append ((char)ch);
@@ -301,7 +302,7 @@ public class Blob {
 	 * @return String - string from blob
 	 */
 	public String getDirectString (int length) {
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		for (int n = 0; n < length; n++) {
 			int ch = getByte();
 			buf.append ((char)ch);
@@ -411,7 +412,7 @@ public class Blob {
 	public String getString (int ofs, int num) {
 		if (data == null)
 			close();
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		for (int n = 0; n < num; n++) {
 			int ch = getByte (ofs+n);
 			if (ch > 0)
@@ -426,7 +427,7 @@ public class Blob {
 	 * @return String - string from blob
 	 */
 	public String getDelimString (int ofs) {
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		int ch;
 		while ((ch = getByte(ofs++)) != 0)
 			buf.append ((char)ch);
@@ -454,7 +455,7 @@ public class Blob {
 	public String getDirectString (int ofs, int length) {
 		if (data == null)
 			close();
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		for (int n = 0; n < length; n++) {
 			int ch = getByte (ofs+n);
 			buf.append ((char)ch);

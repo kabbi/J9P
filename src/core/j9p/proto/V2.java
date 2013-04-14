@@ -134,15 +134,15 @@ public class V2 {
 		// check for Styx message
 		if (type >= 100 && type <= MAX_TYPES) {
 			// assemble formatted Styx message
-			buf.append ("[type:" + typeNames[type-100] + "]");
-			buf.append ("[tag:" + Hex.fromShort ((short)in.getShort(5)) + "]");
+			buf.append("[type:").append(typeNames[type-100]).append ("]");
+			buf.append("[tag:").append(Hex.fromShort ((short)in.getShort(5))).append ("]");
 			if (msgSize > 7) {
 				if (type == Rerror) {
 					String err = in.getLenString (7);
-					buf.append ("[error:" + err + "]");
+					buf.append("[error:").append(err).append ("]");
 				} else {
 					byte[] payload = in.getArray (7, msgSize-7);
-					buf.append ("[data:" + Hex.fromArray (payload, ':') + "]");
+					buf.append("[data:").append(Hex.fromArray (payload, ':')).append ("]");
 				}
 			}
 		}
